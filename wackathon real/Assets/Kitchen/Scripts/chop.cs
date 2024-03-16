@@ -10,8 +10,9 @@ public class chop : MonoBehaviour
 
     private int numIngredients = 9;
     private int count = 0;
-    private float vegStartTime = 0;
-    private float speed = 100.0f;
+    private float speed = 5f;
+    private bool chopping = false;
+    private Vector3 miniTarget;
     // Start is called before the first frame update
     void Start()
     {
@@ -21,25 +22,34 @@ public class chop : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        while(count <= numIngredients){// maybe change to true since break statement
-            if((Time.realtimeSinceStartup - vegStartTime) == 5.0){
-                nextVeg();
-                transform.position = startPos.transform.position;
-                if(count > numIngredients){
-                    break;
-                }
-            }
-            transform.position = Vector3.MoveTowards(startPos.transform.position,targetPos.transform.position,speed*Time.deltaTime);
+        if(chopping == false){
+            transform.position = Vector3.MoveTowards(transform.position,targetPos.transform.position,speed*Time.deltaTime);
+        }
+        if(transform.position == targetPos.transform.position){
+            nextVeg();
+            transform.position = startPos.transform.position;
         }
     }
 
-    void OnMouseDown()
+    private void OnMouseDown()
     {
+        if(!chopping){
+            chopping = true;
+            Debug.Log(chopping);
+            StartCoroutine(PauseCoroutine());
+        }
+    }
 
+    IEnumerator PauseCoroutine(){
+        Debug.Log(Time.time);
+        transform.Rotate(0,0,30);
+        yield return new WaitForSeconds(0.25f);
+        transform.Rotate(0,0,-30);
+        chopping = false;
+        Debug.Log(Time.time);
     }
 
     private void nextVeg(){
-        vegStartTime = Time.realtimeSinceStartup;
         //ingredientScript.generateVeg(count);
         count ++; //increment count afterwards so that list access starts on 0
     }
