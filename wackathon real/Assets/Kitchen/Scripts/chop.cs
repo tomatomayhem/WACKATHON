@@ -38,15 +38,15 @@ public class chop : MonoBehaviour
     }
 
     private void OnTriggerEnter2D(Collider2D collision){
-        //if(collision.gameObject.Tag.CompareTag("Veg")){
-        vegCollision = true;
-        //}
+        if(collision.CompareTag("Veg")){
+            vegCollision = true;
+        }
     }
 
-    private void OnTriggerExit2D(Collider2D collsion){
-        //if(collision.gameObject.Tag.CompareTag("Veg")){
-        vegCollision = false;
-        //}
+    private void OnTriggerExit2D(Collider2D collision){
+        if(collision.CompareTag("Veg")){
+            vegCollision = false;
+        }
     }
 
     private void OnMouseDown()
