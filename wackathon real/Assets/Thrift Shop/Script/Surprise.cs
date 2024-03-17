@@ -1,7 +1,7 @@
 using UnityEngine;
 using System.Collections;
 
-public class RedScript : MonoBehaviour{
+public class Surprise : MonoBehaviour{
     Animator anim;
 
     void Start ()
@@ -13,5 +13,9 @@ public class RedScript : MonoBehaviour{
     void Update ()
     {
         if (Input.GetKeyDown(KeyCode.Space)) anim.SetTrigger("click");
+    }
+    public void changeExpression()
+    {
+        anim.SetTrigger("click");
     }
 }
