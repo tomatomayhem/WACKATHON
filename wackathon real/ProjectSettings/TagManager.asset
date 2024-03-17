@@ -5,7 +5,13 @@ TagManager:
   serializedVersion: 2
   tags:
   - Veg
+<<<<<<< HEAD
+  - Beans
+  - Pasta
+  - Rice
+=======
   - ChoppingBoard
+>>>>>>> 63a313ea225995db7a082a362ee18989c3c386b4
   layers:
   - Default
   - TransparentFX

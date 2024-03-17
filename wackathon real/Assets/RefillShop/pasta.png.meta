@@ -1,5 +1,5 @@
 fileFormatVersion: 2
-guid: 06223d43785ce824e9a3f536961a0352
+guid: f117128413684b54c9242e55477ea8d8
 TextureImporter:
   internalIDToNameTable: []
   externalObjects: {}
@@ -43,7 +43,7 @@ TextureImporter:
   nPOTScale: 0
   lightmap: 0
   compressionQuality: 50
-  spriteMode: 1
+  spriteMode: 2
   spriteExtrude: 1
   spriteMeshType: 1
   alignment: 0
@@ -108,7 +108,91 @@ TextureImporter:
     forceMaximumCompressionQuality_BC6H_BC7: 0
   spriteSheet:
     serializedVersion: 2
-    sprites: []
+    sprites:
+    - serializedVersion: 2
+      name: pasta_0
+      rect:
+        serializedVersion: 2
+        x: 10
+        y: 726
+        width: 497
+        height: 361
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 2ade7bd67e6853a4887827cc9aaaba93
+      internalID: 1225587796
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: pasta_1
+      rect:
+        serializedVersion: 2
+        x: 555
+        y: 726
+        width: 492
+        height: 365
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 468167e0c314fc344b07ee4d8c7bb0c6
+      internalID: 2009836612
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: pasta_2
+      rect:
+        serializedVersion: 2
+        x: 10
+        y: 449
+        width: 496
+        height: 277
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 9fcc0769f0b62534fbda9a4f89811a0f
+      internalID: -407937311
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: pasta_3
+      rect:
+        serializedVersion: 2
+        x: 578
+        y: 459
+        width: 501
+        height: 250
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 4307b241c0825cd4d90116fccb0041df
+      internalID: -539128787
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
     outline: []
     physicsShape: []
     bones: []
@@ -119,7 +203,11 @@ TextureImporter:
     edges: []
     weights: []
     secondaryTextures: []
-    nameFileIdTable: {}
+    nameFileIdTable:
+      pasta_0: 1225587796
+      pasta_1: 2009836612
+      pasta_2: -407937311
+      pasta_3: -539128787
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

@@ -6,11 +6,14 @@ public class RecipeHover : MonoBehaviour
 {
     private Vector3 start = new Vector3(-5, -8, 0);
     private Vector3 end = new Vector3(-5, -3, 0);
+    private Vector3 padding = new Vector3(2, 1, 0);
+    public GameObject text;
 
     // Start is called before the first frame update
     void Start()
     {
         transform.position = start;
+        text.transform.position = start + padding;
     }
 
     // Update is called once per frame
@@ -42,6 +45,8 @@ public class RecipeHover : MonoBehaviour
             fracComplete = distCovered / journeyLength;
             float bounceFactor = Mathf.Sin(fracComplete * Mathf.PI) * bounceHeight;
             transform.position = Vector3.Lerp(start, end + new Vector3(0f, bounceFactor, 0f), fracComplete);
+            text.transform.position = transform.position + (transform.position.y < 0 ? padding : (-1 * padding));
+
             yield return null;
         }
     }
