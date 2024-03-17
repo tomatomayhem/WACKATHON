@@ -21,15 +21,20 @@ public class Ingredients : MonoBehaviour
     }
 
     public void generateVeg(int vegNum){
-        currentVeg = (GameObject)Instantiate(IngredientObjects[vegNum], new Vector3(0,0,-1),IngredientObjects[vegNum].transform.rotation);
+        IngredientObjects[vegNum].transform.position = new Vector3(0,0,-1);
+        currentVeg = IngredientObjects[vegNum];
     }
 
     public void deleteVeg(int vegNum){
-        Destroy(currentVeg);
+        IngredientObjects[vegNum].transform.position = new Vector3(-30,-30,-1);
     }
 
     public int getNumIngredients(){
         return IngredientObjects.Count;
+    }
+
+    public GameObject getCurrentVeg(){
+        return currentVeg;
     }
 
 }
