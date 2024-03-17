@@ -20,7 +20,7 @@ public class spatula : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if(stirs == 5){
+        if(stirs == 7){
             fryingScript.endFrying();
             interactionObjects.transform.position = new Vector3(0,0,0);
             Destroy(gameObject);
