@@ -31,5 +31,10 @@ public class BigJarScript : MonoBehaviour
             animator.SetTrigger("Fill");
             full = true;
         }
+
+        if (full)
+        {
+            transform.position = Vector3.MoveTowards(transform.position, new Vector3(-10, transform.position.y, 0), 10f * Time.deltaTime);
+        }
     }
 }
