@@ -4,9 +4,12 @@ using UnityEngine;
 
 public class BigJarScript : MonoBehaviour
 {
+    public Animator animator;
+    private bool full = false;
     // Start is called before the first frame update
     void Start()
     {
+        animator = GetComponent<Animator>();
         
     }
 
@@ -16,8 +19,17 @@ public class BigJarScript : MonoBehaviour
         
     }
     
-    private void OnTriggerEnter2D(Collider2D collision)
+    void OnTriggerEnter2D(Collider2D collision)
     {
         Debug.Log("triggered collision");
+        var jar = collision.GetComponent<TestJarScript>();
+        if (jar != null && jar.tag == "Beans")
+        {
+            Debug.Log("collided w beans sjar");
+            // check if right ingredient
+            // trigger animation
+            animator.SetTrigger("Fill");
+            full = true;
+        }
     }
 }
