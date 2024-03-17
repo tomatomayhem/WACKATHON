@@ -12,6 +12,7 @@ public class chop : MonoBehaviour
     public GameObject targetPos;
 
     private Animator currentAnimator;
+    private bool choppingBegin = false;
     private int numIngredients;
     private int count = 0;
     private float speed = 5f;
@@ -21,61 +22,41 @@ public class chop : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        transform.position = startPos.transform.position;
-        ingredientScript.generateVeg(count);
-        currentAnimator = ingredientScript.getCurrentVeg().GetComponent<Animator>();
-        numIngredients = ingredientScript.getNumIngredients();
+        
     }
 
     // Update is called once per frame
     void Update()
     {
-        if(count < numIngredients){
-            if(!chopping){
-                transform.position = Vector3.MoveTowards(transform.position,targetPos.transform.position,speed*Time.deltaTime);
+        if(choppingBegin){
+            if(count < numIngredients){
+                if(!chopping){
+                    transform.position = Vector3.MoveTowards(transform.position,targetPos.transform.position,speed*Time.deltaTime);
+                }
+                if(transform.position == targetPos.transform.position){
+                    Debug.Log("reached target");
+                    nextVeg();
+                    transform.position = startPos.transform.position;
+                }
             }
-            if(transform.position == targetPos.transform.position){
-                Debug.Log("reached target");
-                nextVeg();
-                transform.position = startPos.transform.position;
+            else{
+                choppingScript.removeChopping();
+                choppingBegin = false;
+                kitchenScript.endChopping();
             }
-        }
-        else{
-            choppingScript.removeChopping();
-            kitchenScript.endChopping();
         }
     }
 
     private void OnTriggerEnter2D(Collider2D collision){
-        if(collision.CompareTag("Veg")){
+        if(collision.CompareTag("Veg") && !chopping){
             vegCollision = true;
             Debug.Log("veg collision");
         }
     }
 
     private void OnTriggerExit2D(Collider2D collision){
-        if(collision.CompareTag("Veg")){
+        if(collision.CompareTag("Veg") && !chopping){
             vegCollision = false;
-        }
-    }
-
-    private void OnMouseDown()
-    {
-        if(!chopping){
-            chopping = true;
-            StartCoroutine(PauseCoroutine());
-            if(vegCollision){
-                Debug.Log(vegCollision);
-                numChops ++;
-                if(numChops % 2 == 0){
-                    if(!currentAnimator.GetBool("slicing")){
-                        currentAnimator.SetBool("slicing",true);
-                    }
-                    else{
-                        currentAnimator.SetBool("dicing",true);
-                    }
-                }
-            }
         }
     }
 
@@ -93,6 +74,33 @@ public class chop : MonoBehaviour
         if(count < numIngredients){
             ingredientScript.generateVeg(count);
             currentAnimator = ingredientScript.getCurrentVeg().GetComponent<Animator>();
+        }
+    }
+
+    public void beginChopping(){
+        choppingBegin = true;
+        transform.position = startPos.transform.position;
+        ingredientScript.generateVeg(count);
+        currentAnimator = ingredientScript.getCurrentVeg().GetComponent<Animator>();
+        numIngredients = ingredientScript.getNumIngredients();
+    }
+
+    public void setChop(){
+        if(!chopping){
+            chopping = true;
+            StartCoroutine(PauseCoroutine());
+            if(vegCollision){
+                Debug.Log(vegCollision);
+                numChops ++;
+                if(numChops % 2 == 0){
+                    if(!currentAnimator.GetBool("slicing")){
+                        currentAnimator.SetBool("slicing",true);
+                    }
+                    else{
+                        currentAnimator.SetBool("dicing",true);
+                    }
+                }
+            }
         }
     }
 }

@@ -4,6 +4,11 @@ using UnityEngine;
 
 public class ChoppingController : MonoBehaviour
 {
+
+    public chop knifeScript;
+    public KitchenController kitchenScript;
+
+    private bool started = false;
     // Start is called before the first frame update
     void Start()
     {
@@ -12,8 +17,18 @@ public class ChoppingController : MonoBehaviour
 
     // Update is called once per frame
     void Update()
-    {
-        
+    {   
+        if(!started){
+            if(kitchenScript.getChopping()){
+                started = true;
+                startChopping();
+            }
+        }
+    }
+
+    public void startChopping(){
+        transform.position = new Vector3(0,0,0);
+        knifeScript.beginChopping();
     }
 
     public void removeChopping(){
