@@ -12,6 +12,7 @@ public class chop : MonoBehaviour
     public GameObject targetPos;
 
     private Animator currentAnimator;
+    private bool choppingBegin = false;
     private int numIngredients;
     private int count = 0;
     private float speed = 5f;
@@ -21,28 +22,28 @@ public class chop : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        transform.position = startPos.transform.position;
-        ingredientScript.generateVeg(count);
-        currentAnimator = ingredientScript.getCurrentVeg().GetComponent<Animator>();
-        numIngredients = ingredientScript.getNumIngredients();
+        
     }
 
     // Update is called once per frame
     void Update()
     {
-        if(count < numIngredients){
-            if(!chopping){
-                transform.position = Vector3.MoveTowards(transform.position,targetPos.transform.position,speed*Time.deltaTime);
+        if(choppingBegin){
+            if(count < numIngredients){
+                if(!chopping){
+                    transform.position = Vector3.MoveTowards(transform.position,targetPos.transform.position,speed*Time.deltaTime);
+                }
+                if(transform.position == targetPos.transform.position){
+                    Debug.Log("reached target");
+                    nextVeg();
+                    transform.position = startPos.transform.position;
+                }
             }
-            if(transform.position == targetPos.transform.position){
-                Debug.Log("reached target");
-                nextVeg();
-                transform.position = startPos.transform.position;
+            else{
+                choppingScript.removeChopping();
+                choppingBegin = false;
+                kitchenScript.endChopping();
             }
-        }
-        else{
-            choppingScript.removeChopping();
-            kitchenScript.endChopping();
         }
     }
 
@@ -94,5 +95,13 @@ public class chop : MonoBehaviour
             ingredientScript.generateVeg(count);
             currentAnimator = ingredientScript.getCurrentVeg().GetComponent<Animator>();
         }
+    }
+
+    public void beginChopping(){
+        choppingBegin = true;
+        transform.position = startPos.transform.position;
+        ingredientScript.generateVeg(count);
+        currentAnimator = ingredientScript.getCurrentVeg().GetComponent<Animator>();
+        numIngredients = ingredientScript.getNumIngredients();
     }
 }

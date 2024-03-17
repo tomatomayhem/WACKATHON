@@ -18,9 +18,13 @@ public class FryingController : MonoBehaviour
     {   
         if(!frying){
             frying = kitchenScript.getFrying();
+            if(frying){
+                transform.position = new Vector3(0,0,0);
+            }
         }
-        else{
-            transform.position = new Vector3(0,0,0);
-        }
+    }
+
+    public void endFrying(){
+        transform.position = new Vector3(30,30,0);
     }
 }

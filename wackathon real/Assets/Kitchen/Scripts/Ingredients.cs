@@ -21,7 +21,7 @@ public class Ingredients : MonoBehaviour
     }
 
     public void generateVeg(int vegNum){
-        IngredientObjects[vegNum].transform.position = new Vector3(0,0,-1);
+        IngredientObjects[vegNum].transform.position = new Vector3(0,0,-2);
         currentVeg = IngredientObjects[vegNum];
     }
 

@@ -4,20 +4,25 @@ using UnityEngine;
 
 public class KitchenController : MonoBehaviour
 {
-
+    private bool introduction = false;
     private bool chopping = false;
     private bool frying = false;
 
     // Start is called before the first frame update
     void Start()
     {
-        chopping = true;
+        introduction = true;
     }
 
     // Update is called once per frame
     void Update()
     {
         
+    }
+
+    public void endIntroduction(){
+        introduction = false;
+        chopping = true;
     }
 
     public bool getChopping(){
