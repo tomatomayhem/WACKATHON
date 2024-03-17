@@ -4,43 +4,104 @@ using UnityEngine;
 
 public class chop : MonoBehaviour
 {
-    //public Ingredients ingredientScript;
+    public Ingredients ingredientScript;
+    public ChoppingController choppingScript;
+    public KitchenController kitchenScript;
+
     public GameObject startPos;
     public GameObject targetPos;
 
-    private int numIngredients = 9;
+    private Animator currentAnimator;
+    private bool choppingBegin = false;
+    private int numIngredients;
     private int count = 0;
-    private float vegStartTime = 0;
-    private float speed = 100.0f;
+    private float speed = 5f;
+    private bool chopping = false;
+    private int numChops = 0;
+    private bool vegCollision = false;
     // Start is called before the first frame update
     void Start()
     {
-        transform.position = startPos.transform.position;
+        
     }
 
     // Update is called once per frame
     void Update()
     {
-        while(count <= numIngredients){// maybe change to true since break statement
-            if((Time.realtimeSinceStartup - vegStartTime) == 5.0){
-                nextVeg();
-                transform.position = startPos.transform.position;
-                if(count > numIngredients){
-                    break;
+        if(choppingBegin){
+            if(count < numIngredients){
+                if(!chopping){
+                    transform.position = Vector3.MoveTowards(transform.position,targetPos.transform.position,speed*Time.deltaTime);
+                }
+                if(transform.position == targetPos.transform.position){
+                    Debug.Log("reached target");
+                    nextVeg();
+                    transform.position = startPos.transform.position;
                 }
             }
-            transform.position = Vector3.MoveTowards(startPos.transform.position,targetPos.transform.position,speed*Time.deltaTime);
+            else{
+                choppingScript.removeChopping();
+                choppingBegin = false;
+                kitchenScript.endChopping();
+            }
         }
     }
 
-    void OnMouseDown()
-    {
+    private void OnTriggerEnter2D(Collider2D collision){
+        if(collision.CompareTag("Veg")){
+            vegCollision = true;
+            Debug.Log("veg collision");
+        }
+    }
 
+    private void OnTriggerExit2D(Collider2D collision){
+        if(collision.CompareTag("Veg")){
+            vegCollision = false;
+        }
+    }
+
+    private void OnMouseDown()
+    {
+        if(!chopping){
+            chopping = true;
+            StartCoroutine(PauseCoroutine());
+            if(vegCollision){
+                Debug.Log(vegCollision);
+                numChops ++;
+                if(numChops % 2 == 0){
+                    if(!currentAnimator.GetBool("slicing")){
+                        currentAnimator.SetBool("slicing",true);
+                    }
+                    else{
+                        currentAnimator.SetBool("dicing",true);
+                    }
+                }
+            }
+        }
+    }
+
+    IEnumerator PauseCoroutine(){
+        transform.Rotate(0,0,30);
+        yield return new WaitForSeconds(0.25f);
+        transform.Rotate(0,0,-30);
+        chopping = false;
     }
 
     private void nextVeg(){
-        vegStartTime = Time.realtimeSinceStartup;
-        //ingredientScript.generateVeg(count);
-        count ++; //increment count afterwards so that list access starts on 0
+        numChops = 0;
+        ingredientScript.deleteVeg(count);
+        count ++;
+        if(count < numIngredients){
+            ingredientScript.generateVeg(count);
+            currentAnimator = ingredientScript.getCurrentVeg().GetComponent<Animator>();
+        }
+    }
+
+    public void beginChopping(){
+        choppingBegin = true;
+        transform.position = startPos.transform.position;
+        ingredientScript.generateVeg(count);
+        currentAnimator = ingredientScript.getCurrentVeg().GetComponent<Animator>();
+        numIngredients = ingredientScript.getNumIngredients();
     }
 }
