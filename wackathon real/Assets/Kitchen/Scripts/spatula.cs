@@ -28,16 +28,17 @@ public class spatula : MonoBehaviour
         if(followMouse){
             Vector3 mousePosition = Camera.main.ScreenToWorldPoint(Input.mousePosition);
             transform.position = new Vector3(mousePosition.x,0,-2);
-            if(transform.position.x <= -5){
-                transform.position = new Vector3(-5,-0,-2);
+            if(transform.position.x <= -5.5f){
+                transform.position = new Vector3(-5.5f,-0,-2);
             }
-            else if(transform.position.x >= -2.5f){
-                transform.position = new Vector3(-2.5f,0,-2);
+            else if(transform.position.x >= -3.25f){
+                transform.position = new Vector3(-3.25f,0,-2);
             }
         }
     }
 
     private void OnTriggerEnter2D(Collider2D collision){
+        Debug.Log("stir");
         stirs++;
     }
 

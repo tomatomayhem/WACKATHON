@@ -18,7 +18,7 @@ public class chop : MonoBehaviour
     private float speed = 5f;
     private bool chopping = false;
     private int numChops = 0;
-    private bool vegCollision = false;
+    //private bool vegCollision = false;
     // Start is called before the first frame update
     void Start()
     {
@@ -47,18 +47,22 @@ public class chop : MonoBehaviour
         }
     }
 
+    /*
     private void OnTriggerEnter2D(Collider2D collision){
-        if(collision.CompareTag("Veg") && !chopping){
+        Debug.Log("collision");
+        if(collision.CompareTag("Veg")){
             vegCollision = true;
             Debug.Log("veg collision");
         }
     }
 
     private void OnTriggerExit2D(Collider2D collision){
-        if(collision.CompareTag("Veg") && !chopping){
+        Debug.Log("end collision");
+        if(collision.CompareTag("Veg")){
             vegCollision = false;
         }
     }
+    */
 
     IEnumerator PauseCoroutine(){
         transform.Rotate(0,0,30);
@@ -89,8 +93,8 @@ public class chop : MonoBehaviour
         if(!chopping){
             chopping = true;
             StartCoroutine(PauseCoroutine());
-            if(vegCollision){
-                Debug.Log(vegCollision);
+            //if(vegCollision){
+                //Debug.Log(vegCollision);
                 numChops ++;
                 if(numChops % 2 == 0){
                     if(!currentAnimator.GetBool("slicing")){
@@ -100,7 +104,7 @@ public class chop : MonoBehaviour
                         currentAnimator.SetBool("dicing",true);
                     }
                 }
-            }
+            //}
         }
     }
 }
