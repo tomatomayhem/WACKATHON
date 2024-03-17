@@ -26,7 +26,7 @@ public class Ingredients : MonoBehaviour
     }
 
     public void deleteVeg(int vegNum){
-        IngredientObjects[vegNum].transform.position = new Vector3(-10,-10,-1);
+        IngredientObjects[vegNum].transform.position = new Vector3(-30,-30,-1);
     }
 
     public int getNumIngredients(){

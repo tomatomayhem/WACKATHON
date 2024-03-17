@@ -16,12 +16,19 @@ public class spatula : MonoBehaviour
     {
         if(followMouse){
             Vector3 mousePosition = Camera.main.ScreenToWorldPoint(Input.mousePosition);
-            transform.position = mousePosition;
+            transform.position = new Vector3(mousePosition.x,1.5f,-1);
+            if(transform.position.x <= -2.5f){
+                transform.position = new Vector3(-2.5f,1.5f,-1);
+            }
+            else if(transform.position.x >= 0.5f){
+                transform.position = new Vector3(0.5f,1.5f,-1);
+            }
         }
     }
 
     void OnMouseDown(){
         followMouse = true;
+        Debug.Log("click");
     }
 
     void OnMouseUp(){

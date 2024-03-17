@@ -5,6 +5,9 @@ using UnityEngine;
 public class chop : MonoBehaviour
 {
     public Ingredients ingredientScript;
+    public ChoppingController choppingScript;
+    public KitchenController kitchenScript;
+
     public GameObject startPos;
     public GameObject targetPos;
 
@@ -20,6 +23,7 @@ public class chop : MonoBehaviour
     {
         transform.position = startPos.transform.position;
         ingredientScript.generateVeg(count);
+        currentAnimator = ingredientScript.getCurrentVeg().GetComponent<Animator>();
         numIngredients = ingredientScript.getNumIngredients();
     }
 
@@ -31,15 +35,21 @@ public class chop : MonoBehaviour
                 transform.position = Vector3.MoveTowards(transform.position,targetPos.transform.position,speed*Time.deltaTime);
             }
             if(transform.position == targetPos.transform.position){
+                Debug.Log("reached target");
                 nextVeg();
                 transform.position = startPos.transform.position;
             }
+        }
+        else{
+            choppingScript.removeChopping();
+            kitchenScript.endChopping();
         }
     }
 
     private void OnTriggerEnter2D(Collider2D collision){
         if(collision.CompareTag("Veg")){
             vegCollision = true;
+            Debug.Log("veg collision");
         }
     }
 
